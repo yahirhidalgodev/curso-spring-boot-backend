@@ -35,7 +35,7 @@ public class Usuario {
     public String getNombre(){
         return nombre;
     }
-    public void setnombre(String nombre){
+    public void setNombre(String nombre){
         this.nombre = nombre;
     }
 

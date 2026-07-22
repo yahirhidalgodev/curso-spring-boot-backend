@@ -28,6 +28,22 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
+    public Optional<Usuario> actualizarUsuario(Long id, Usuario datosUsuario){
 
+        Optional<Usuario> usuarioExistente =
+                usuarioRepository.findById(id);
 
+        if(usuarioExistente.isPresent()){
+
+            Usuario usuario = usuarioExistente.get();
+
+            usuario.setNombre(datosUsuario.getNombre());
+            usuario.setEdad(datosUsuario.getEdad());
+
+            return Optional.of(usuarioRepository.save(usuario));
+
+        }
+
+        return Optional.empty();
+    }
 }

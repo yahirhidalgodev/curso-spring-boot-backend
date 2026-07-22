@@ -41,4 +41,20 @@ public class UsuarioController {
         }
     }
 
-}
+    @PutMapping("/usuarios/{id}")
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
+                Optional<Usuario> usuarioActualizado = usuarioService.actualizarUsuario(id, usuario);
+
+                if(usuarioActualizado.isPresent()){
+                    return ResponseEntity.ok(usuarioActualizado.get());
+                }
+                else {
+                    return ResponseEntity.notFound().build();
+                }
+        }
+
+
+    }
+
+
+
