@@ -5,6 +5,7 @@ import com.yahir.primer_api.model.Usuario;
 import com.yahir.primer_api.service.UsuarioService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuario")
-    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> crearUsuario(@Validated @RequestBody Usuario usuario){
         Usuario nuevoUsuario = usuarioService.guardarUsuario(usuario);
         return ResponseEntity.status(201).body(nuevoUsuario);
     }
@@ -42,7 +43,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/usuarios/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id,@Validated @RequestBody Usuario usuario){
                 Optional<Usuario> usuarioActualizado = usuarioService.actualizarUsuario(id, usuario);
 
                 if(usuarioActualizado.isPresent()){
