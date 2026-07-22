@@ -5,12 +5,10 @@ import com.yahir.primer_api.model.Usuario;
 import com.yahir.primer_api.service.UsuarioService;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UsuarioController {
@@ -33,6 +31,14 @@ public class UsuarioController {
         return usuarioService.obtenerUsuarios();
     }
 
-    
+    @GetMapping("/usuarios/{id}")
+    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id){
+        Optional<Usuario> usuario = usuarioService.obtenerUsuarioPorId(id);
+        if(usuario.isPresent()){
+            return ResponseEntity.ok(usuario.get());
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }
