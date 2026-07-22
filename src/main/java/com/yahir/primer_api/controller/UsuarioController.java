@@ -5,9 +5,12 @@ import com.yahir.primer_api.model.Usuario;
 import com.yahir.primer_api.service.UsuarioService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class UsuarioController {
@@ -25,6 +28,11 @@ public class UsuarioController {
         return ResponseEntity.status(201).body(nuevoUsuario);
     }
 
+    @GetMapping("/usuarios")
+    public List<Usuario> obtenerUsuarios(){
+        return usuarioService.obtenerUsuarios();
+    }
 
+    
 
 }
