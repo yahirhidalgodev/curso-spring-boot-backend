@@ -41,9 +41,18 @@ public class UsuarioService {
             usuario.setEdad(datosUsuario.getEdad());
 
             return Optional.of(usuarioRepository.save(usuario));
-
         }
-
         return Optional.empty();
     }
+
+    public boolean eliminarUsuario(Long id){
+        if(usuarioRepository.existsById(id)){
+            usuarioRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+
+
 }

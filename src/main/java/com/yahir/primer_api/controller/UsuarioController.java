@@ -53,6 +53,15 @@ public class UsuarioController {
                 }
         }
 
+    @DeleteMapping("/usuarios/{id}")
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
+        boolean eliminado = usuarioService.eliminarUsuario(id);
+
+        if (eliminado) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 
     }
 
