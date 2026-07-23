@@ -1,9 +1,9 @@
 package com.yahir.primer_api.controller;
 
-
 import com.yahir.primer_api.model.Usuario;
 import com.yahir.primer_api.service.UsuarioService;
 
+import com.yahir.primer_api.dto.UsuarioResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +33,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/usuarios/{id}")
-    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id){
-        Optional<Usuario> usuario = usuarioService.obtenerUsuarioPorId(id);
-        if(usuario.isPresent()){
-            return ResponseEntity.ok(usuario.get());
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<UsuarioResponse> obtenerUsuarioPorId(@PathVariable Long id){
+        return ResponseEntity.ok(usuarioService.obtenerUsuarioPorId(id));
     }
 
     @PutMapping("/usuarios/{id}")

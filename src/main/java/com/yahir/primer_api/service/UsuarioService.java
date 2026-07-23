@@ -1,7 +1,9 @@
 package com.yahir.primer_api.service;
 
+import com.yahir.primer_api.exception.ResourceNotFoundException;
 import com.yahir.primer_api.model.Usuario;
 import com.yahir.primer_api.repository.UsuarioRepository;
+import com.yahir.primer_api.dto.UsuarioResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,10 +24,20 @@ public class UsuarioService {
 
     public List<Usuario> obtenerUsuarios(){
         return usuarioRepository.findAll();
+
     }
 
-    public Optional<Usuario> obtenerUsuarioPorId(Long id){
-        return usuarioRepository.findById(id);
+    public UsuarioResponse obtenerUsuarioPorId(Long id){
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Usuario no encontrado."));
+
+        UsuarioResponse respuesta = new UsuarioResponse();
+
+        respuesta.setId(usuario.getId());
+        respuesta.setNombre(usuario.getNombre());
+        respuesta.setEdad(usuario.getEdad());
+
+        return respuesta;
     }
 
     public Optional<Usuario> actualizarUsuario(Long id, Usuario datosUsuario){
