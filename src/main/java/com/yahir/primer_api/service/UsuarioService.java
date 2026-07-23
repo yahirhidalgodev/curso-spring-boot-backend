@@ -1,5 +1,6 @@
 package com.yahir.primer_api.service;
 
+import com.yahir.primer_api.dto.UsuarioRequest;
 import com.yahir.primer_api.exception.ResourceNotFoundException;
 import com.yahir.primer_api.model.Usuario;
 import com.yahir.primer_api.repository.UsuarioRepository;
@@ -18,10 +19,24 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Usuario guardarUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public UsuarioResponse guardarUsuario(UsuarioRequest request) {
+        Usuario usuario = new Usuario();
+
+        usuario.setNombre(request.getNombre());
+        usuario.setEdad(request.getEdad());
+
+        usuario = usuarioRepository.save(usuario);
+        
+        UsuarioResponse response = new UsuarioResponse();
+
+        response.setId(usuario.getId());
+        response.setNombre(usuario.getNombre());
+        response.setEdad(usuario.getEdad());
+
+        return response;
     }
 
+    
     public List<Usuario> obtenerUsuarios(){
         return usuarioRepository.findAll();
 
@@ -64,7 +79,5 @@ public class UsuarioService {
         }
         return false;
     }
-
-
 
 }

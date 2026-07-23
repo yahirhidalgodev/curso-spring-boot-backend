@@ -1,5 +1,6 @@
 package com.yahir.primer_api.controller;
 
+import com.yahir.primer_api.dto.UsuarioRequest;
 import com.yahir.primer_api.model.Usuario;
 import com.yahir.primer_api.service.UsuarioService;
 
@@ -22,10 +23,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuario")
-    public ResponseEntity<Usuario> crearUsuario(@Validated @RequestBody Usuario usuario){
-        Usuario nuevoUsuario = usuarioService.guardarUsuario(usuario);
+    public ResponseEntity<UsuarioResponse> guardarUsuario(@Validated @RequestBody UsuarioRequest request){
+        UsuarioResponse nuevoUsuario = usuarioService.guardarUsuario(request);
         return ResponseEntity.status(201).body(nuevoUsuario);
     }
+
 
     @GetMapping("/usuarios")
     public List<Usuario> obtenerUsuarios(){
