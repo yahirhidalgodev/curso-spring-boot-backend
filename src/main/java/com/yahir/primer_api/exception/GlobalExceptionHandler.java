@@ -1,5 +1,6 @@
 package com.yahir.primer_api.exception;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,6 +24,16 @@ public ResponseEntity<Map<String, String>> manejarErroresValidacion(MethodArgume
 
     return ResponseEntity.badRequest().body(errores);
 }
+
+@ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, String>> manejarRecursoNoEncotrado(ResourceNotFoundException ex){
+
+    Map<String, String> error = new HashMap<>();
+
+    error.put("mensaje" , ex.getMessage());
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+}
+
 
 
 }
