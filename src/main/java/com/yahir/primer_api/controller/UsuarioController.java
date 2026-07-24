@@ -1,7 +1,6 @@
 package com.yahir.primer_api.controller;
 
 import com.yahir.primer_api.dto.UsuarioRequest;
-import com.yahir.primer_api.model.Usuario;
 import com.yahir.primer_api.service.UsuarioService;
 
 import com.yahir.primer_api.dto.UsuarioResponse;
@@ -10,7 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class UsuarioController {
@@ -29,7 +27,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/usuarios")
-    public List<Usuario> obtenerUsuarios(){
+    public List<UsuarioResponse> obtenerUsuarios(){
         return usuarioService.obtenerUsuarios();
     }
 

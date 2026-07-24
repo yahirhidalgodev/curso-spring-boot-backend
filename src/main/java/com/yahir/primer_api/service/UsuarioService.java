@@ -7,6 +7,7 @@ import com.yahir.primer_api.repository.UsuarioRepository;
 import com.yahir.primer_api.dto.UsuarioResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +37,22 @@ public class UsuarioService {
         return response;
     }
     
-    public List<Usuario> obtenerUsuarios(){
-        return usuarioRepository.findAll();
+    public List<UsuarioResponse> obtenerUsuarios(){
+        List<Usuario> usuarios = usuarioRepository.findAll();
+
+        List<UsuarioResponse> respuesta = new ArrayList<>();
+
+        for(Usuario usuario: usuarios){
+            UsuarioResponse response = new UsuarioResponse();
+
+            response.setId(usuario.getId());
+            response.setNombre(usuario.getNombre());
+            response.setEdad(usuario.getEdad());
+
+            respuesta.add(response);
+
+        }
+        return respuesta;
     }
 
     public UsuarioResponse obtenerUsuarioPorId(Long id){
