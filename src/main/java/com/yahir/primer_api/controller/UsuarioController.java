@@ -28,7 +28,6 @@ public class UsuarioController {
         return ResponseEntity.status(201).body(nuevoUsuario);
     }
 
-
     @GetMapping("/usuarios")
     public List<Usuario> obtenerUsuarios(){
         return usuarioService.obtenerUsuarios();
@@ -40,27 +39,11 @@ public class UsuarioController {
     }
 
     @PutMapping("/usuarios/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id,@Validated @RequestBody Usuario usuario){
-                Optional<Usuario> usuarioActualizado = usuarioService.actualizarUsuario(id, usuario);
+    public ResponseEntity<UsuarioResponse> actualizarUsuario(@PathVariable Long id,@Validated @RequestBody UsuarioRequest request){
+        UsuarioResponse usuarioActualizado = usuarioService.actualizarUsuario(id, request);
 
-                if(usuarioActualizado.isPresent()){
-                    return ResponseEntity.ok(usuarioActualizado.get());
-                }
-                else {
-                    return ResponseEntity.notFound().build();
-                }
+        return ResponseEntity.ok(usuarioActualizado);
         }
-
-    @DeleteMapping("/usuarios/{id}")
-    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
-        boolean eliminado = usuarioService.eliminarUsuario(id);
-
-        if (eliminado) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
-
     }
 
 

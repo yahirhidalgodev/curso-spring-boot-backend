@@ -35,11 +35,9 @@ public class UsuarioService {
 
         return response;
     }
-
     
     public List<Usuario> obtenerUsuarios(){
         return usuarioRepository.findAll();
-
     }
 
     public UsuarioResponse obtenerUsuarioPorId(Long id){
@@ -55,21 +53,23 @@ public class UsuarioService {
         return respuesta;
     }
 
-    public Optional<Usuario> actualizarUsuario(Long id, Usuario datosUsuario){
+    public UsuarioResponse actualizarUsuario(Long id, UsuarioRequest request){
 
-        Optional<Usuario> usuarioExistente =
-                usuarioRepository.findById(id);
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado."));
 
-        if(usuarioExistente.isPresent()){
+        usuario.setNombre(request.getNombre());
+        usuario.setEdad(request.getEdad());
 
-            Usuario usuario = usuarioExistente.get();
+        usuario = usuarioRepository.save(usuario);
 
-            usuario.setNombre(datosUsuario.getNombre());
-            usuario.setEdad(datosUsuario.getEdad());
+        UsuarioResponse response = new UsuarioResponse();
 
-            return Optional.of(usuarioRepository.save(usuario));
-        }
-        return Optional.empty();
+        response.setId(usuario.getId());
+        response.setNombre(usuario.getNombre());
+        response.setEdad(usuario.getEdad());
+
+        return response;
     }
 
     public boolean eliminarUsuario(Long id){
