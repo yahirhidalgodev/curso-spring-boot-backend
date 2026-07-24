@@ -21,11 +21,9 @@ public class UsuarioService {
     }
 
     public UsuarioResponse guardarUsuario(UsuarioRequest request) {
-        Usuario usuario = new Usuario();
 
-        usuario.setNombre(request.getNombre());
-        usuario.setEdad(request.getEdad());
 
+        Usuario usuario = convertirAEntidad(request);
         usuario = usuarioRepository.save(usuario);
 
         return convertirAResponse(usuario);
@@ -70,7 +68,7 @@ public class UsuarioService {
         return false;
     }
 
-    private UsuarioResponse convertirAResponse (Usuario usuario){
+    private UsuarioResponse convertirAResponse(Usuario usuario){
         UsuarioResponse response = new UsuarioResponse();
 
         response.setId(usuario.getId());
@@ -81,4 +79,13 @@ public class UsuarioService {
 
     }
 
+    private Usuario convertirAEntidad(UsuarioRequest request){
+
+        Usuario usuario = new Usuario();
+
+        usuario.setNombre(request.getNombre());
+        usuario.setEdad(request.getEdad());
+
+        return usuario;
+    }
 }
