@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class UsuarioService {
@@ -27,14 +27,8 @@ public class UsuarioService {
         usuario.setEdad(request.getEdad());
 
         usuario = usuarioRepository.save(usuario);
-        
-        UsuarioResponse response = new UsuarioResponse();
 
-        response.setId(usuario.getId());
-        response.setNombre(usuario.getNombre());
-        response.setEdad(usuario.getEdad());
-
-        return response;
+        return convertirAResponse(usuario);
     }
     
     public List<UsuarioResponse> obtenerUsuarios(){
@@ -43,14 +37,7 @@ public class UsuarioService {
         List<UsuarioResponse> respuesta = new ArrayList<>();
 
         for(Usuario usuario: usuarios){
-            UsuarioResponse response = new UsuarioResponse();
-
-            response.setId(usuario.getId());
-            response.setNombre(usuario.getNombre());
-            response.setEdad(usuario.getEdad());
-
-            respuesta.add(response);
-
+            respuesta.add(convertirAResponse(usuario));
         }
         return respuesta;
     }
@@ -59,13 +46,7 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Usuario no encontrado."));
 
-        UsuarioResponse respuesta = new UsuarioResponse();
-
-        respuesta.setId(usuario.getId());
-        respuesta.setNombre(usuario.getNombre());
-        respuesta.setEdad(usuario.getEdad());
-
-        return respuesta;
+        return convertirAResponse(usuario);
     }
 
     public UsuarioResponse actualizarUsuario(Long id, UsuarioRequest request){
@@ -78,13 +59,7 @@ public class UsuarioService {
 
         usuario = usuarioRepository.save(usuario);
 
-        UsuarioResponse response = new UsuarioResponse();
-
-        response.setId(usuario.getId());
-        response.setNombre(usuario.getNombre());
-        response.setEdad(usuario.getEdad());
-
-        return response;
+        return convertirAResponse(usuario);
     }
 
     public boolean eliminarUsuario(Long id){
@@ -93,6 +68,17 @@ public class UsuarioService {
             return true;
         }
         return false;
+    }
+
+    private UsuarioResponse convertirAResponse (Usuario usuario){
+        UsuarioResponse response = new UsuarioResponse();
+
+        response.setId(usuario.getId());
+        response.setNombre(usuario.getNombre());
+        response.setEdad(usuario.getEdad());
+
+        return response;
+
     }
 
 }
