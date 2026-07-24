@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class UsuarioService {
 
@@ -19,14 +18,15 @@ public class UsuarioService {
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
-    public UsuarioResponse guardarUsuario(UsuarioRequest request) {
 
+    public UsuarioResponse guardarUsuario(UsuarioRequest request) {
 
         Usuario usuario = convertirAEntidad(request);
         usuario = usuarioRepository.save(usuario);
 
         return convertirAResponse(usuario);
     }
+
     public List<UsuarioResponse> obtenerUsuarios(){
         List<Usuario> usuarios = usuarioRepository.findAll();
 
@@ -37,12 +37,14 @@ public class UsuarioService {
         }
         return respuesta;
     }
+
     public UsuarioResponse obtenerUsuarioPorId(Long id){
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Usuario no encontrado."));
 
         return convertirAResponse(usuario);
     }
+
     public UsuarioResponse actualizarUsuario(Long id, UsuarioRequest request){
 
         Usuario usuario = usuarioRepository.findById(id)
@@ -54,6 +56,7 @@ public class UsuarioService {
 
         return convertirAResponse(usuario);
     }
+
     public boolean eliminarUsuario(Long id){
         if(usuarioRepository.existsById(id)){
             usuarioRepository.deleteById(id);
@@ -62,6 +65,15 @@ public class UsuarioService {
         return false;
     }
 
+
+    private Usuario convertirAEntidad(UsuarioRequest request){
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre(request.getNombre());
+        usuario.setEdad(request.getEdad());
+
+        return usuario;
+    }
     private UsuarioResponse convertirAResponse(Usuario usuario){
         UsuarioResponse response = new UsuarioResponse();
 
@@ -71,15 +83,6 @@ public class UsuarioService {
 
         return response;
 
-    }
-    private Usuario convertirAEntidad(UsuarioRequest request){
-
-        Usuario usuario = new Usuario();
-
-        usuario.setNombre(request.getNombre());
-        usuario.setEdad(request.getEdad());
-
-        return usuario;
     }
     private void actualizarEntidad(Usuario usuario, UsuarioRequest request){
         usuario.setNombre(request.getNombre());
