@@ -19,7 +19,6 @@ public class UsuarioService {
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
-
     public UsuarioResponse guardarUsuario(UsuarioRequest request) {
 
 
@@ -28,7 +27,6 @@ public class UsuarioService {
 
         return convertirAResponse(usuario);
     }
-    
     public List<UsuarioResponse> obtenerUsuarios(){
         List<Usuario> usuarios = usuarioRepository.findAll();
 
@@ -39,27 +37,23 @@ public class UsuarioService {
         }
         return respuesta;
     }
-
     public UsuarioResponse obtenerUsuarioPorId(Long id){
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Usuario no encontrado."));
 
         return convertirAResponse(usuario);
     }
-
     public UsuarioResponse actualizarUsuario(Long id, UsuarioRequest request){
 
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado."));
 
-        usuario.setNombre(request.getNombre());
-        usuario.setEdad(request.getEdad());
+        actualizarEntidad(usuario, request);
 
         usuario = usuarioRepository.save(usuario);
 
         return convertirAResponse(usuario);
     }
-
     public boolean eliminarUsuario(Long id){
         if(usuarioRepository.existsById(id)){
             usuarioRepository.deleteById(id);
@@ -78,7 +72,6 @@ public class UsuarioService {
         return response;
 
     }
-
     private Usuario convertirAEntidad(UsuarioRequest request){
 
         Usuario usuario = new Usuario();
@@ -88,4 +81,9 @@ public class UsuarioService {
 
         return usuario;
     }
+    private void actualizarEntidad(Usuario usuario, UsuarioRequest request){
+        usuario.setNombre(request.getNombre());
+        usuario.setEdad(request.getEdad());
+    }
+
 }
