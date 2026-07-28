@@ -15,7 +15,6 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public class Usuario {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +27,6 @@ public class Usuario {
     private Integer edad;
 
     public Usuario(){
-
     }
 
     public Usuario(String nombre, int edad){
@@ -53,7 +51,4 @@ public class Usuario {
     public void setEdad(int edad){
         this.edad = edad;
     }
-
-
-
 }

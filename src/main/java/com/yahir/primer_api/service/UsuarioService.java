@@ -68,4 +68,14 @@ public class UsuarioService {
     }
 
 
+    public UsuarioResponse obtenerUsuarioPorNombre(String nombre){
+
+        Usuario usuario = usuarioRepository.findByNombre(nombre);
+
+        if(usuario == null){
+            throw new ResourceNotFoundException("Usuario no encontrado.");
+        }
+
+        return UsuarioMapper.convertirAResponse(usuario);
+    }
 }

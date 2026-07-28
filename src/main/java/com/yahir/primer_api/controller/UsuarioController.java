@@ -4,6 +4,7 @@ import com.yahir.primer_api.dto.UsuarioRequest;
 import com.yahir.primer_api.service.UsuarioService;
 
 import com.yahir.primer_api.dto.UsuarioResponse;
+import org.hibernate.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,18 @@ public class UsuarioController {
 
         return ResponseEntity.ok(usuarioActualizado);
         }
+
+    @GetMapping("/usuarios/buscar")
+    public ResponseEntity<UsuarioResponse> obtenerUsuarioPorNombre(
+            @RequestParam String nombre){
+
+        return ResponseEntity.ok(
+                usuarioService.obtenerUsuarioPorNombre(nombre)
+        );
     }
+
+
+}
 
 
 
