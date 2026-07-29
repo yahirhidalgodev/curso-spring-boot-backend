@@ -78,4 +78,16 @@ public class UsuarioService {
 
         return UsuarioMapper.convertirAResponse(usuario);
     }
+
+
+
+    public UsuarioResponse obtenerUsuarioPorNombreYEdad(String nombre, Integer edad){
+        Usuario usuario = usuarioRepository.findByNombreAndEdad(nombre, edad);
+
+        if(usuario == null){
+            throw new ResourceNotFoundException("Usuario no encontrado.");
+        }
+
+        return UsuarioMapper.convertirAResponse(usuario);
+    }
 }

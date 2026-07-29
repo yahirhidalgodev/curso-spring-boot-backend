@@ -53,6 +53,10 @@ public class UsuarioController {
         );
     }
 
+    @GetMapping("/usuarios/buscar-por-nombre-y-edad")
+    public ResponseEntity<UsuarioResponse> obtenerUsuarioPorNombreYEdad (@RequestParam String nombre, @RequestParam Integer edad){
+        return ResponseEntity.ok(usuarioService.obtenerUsuarioPorNombreYEdad(nombre, edad));
+    }
 
 }
 
