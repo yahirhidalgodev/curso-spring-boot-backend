@@ -90,4 +90,19 @@ public class UsuarioService {
 
         return UsuarioMapper.convertirAResponse(usuario);
     }
+
+
+    public List<UsuarioResponse> obtenerUsuariosMayoresOIguales(Integer edad) {
+        List<Usuario> usuarios = usuarioRepository.findByEdadGreaterThanEqual(edad);
+
+        List<UsuarioResponse> respuesta = new ArrayList<>();
+
+        for(Usuario usuario: usuarios){
+            respuesta.add(UsuarioMapper.convertirAResponse(usuario));
+        }
+
+        return respuesta;
+
+    }
+
 }

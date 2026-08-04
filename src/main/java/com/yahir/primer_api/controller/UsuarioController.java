@@ -4,7 +4,6 @@ import com.yahir.primer_api.dto.UsuarioRequest;
 import com.yahir.primer_api.service.UsuarioService;
 
 import com.yahir.primer_api.dto.UsuarioResponse;
-import org.hibernate.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +56,17 @@ public class UsuarioController {
     public ResponseEntity<UsuarioResponse> obtenerUsuarioPorNombreYEdad (@RequestParam String nombre, @RequestParam Integer edad){
         return ResponseEntity.ok(usuarioService.obtenerUsuarioPorNombreYEdad(nombre, edad));
     }
+
+    @GetMapping("/usuarios/mayores")
+    public ResponseEntity<List<UsuarioResponse>> obtenerUsuariosMayoresOIguales (@RequestParam Integer edad){
+        List<UsuarioResponse> usuarios = usuarioService.obtenerUsuariosMayoresOIguales(edad);
+
+        return ResponseEntity.ok(usuarios);
+    }
+
+
+
+
 
 }
 
