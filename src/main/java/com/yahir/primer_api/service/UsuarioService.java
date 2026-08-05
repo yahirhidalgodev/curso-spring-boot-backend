@@ -100,5 +100,14 @@ public class UsuarioService {
         return respuesta;
     }
 
+    public List<UsuarioResponse> obtenerUsuariosOrdenadosPorEdad(){
+        List<Usuario> usuarios = usuarioRepository.findByOrderByEdadAsc();
 
+        List<UsuarioResponse> respuesta = new ArrayList<>();
+
+        for(Usuario usuario: usuarios){
+            respuesta.add(UsuarioMapper.convertirAResponse(usuario));
+        }
+        return respuesta;
+    }
 }

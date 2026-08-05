@@ -69,6 +69,11 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
+    @GetMapping("/usuarios/ordenados-por-edad/")
+    public ResponseEntity<List<UsuarioResponse>> obtenerUsuariosOrdenadosPorEdad(){
+        return ResponseEntity.ok(usuarioService.obtenerUsuariosOrdenadosPorEdad());
+    }
+
 
 
 

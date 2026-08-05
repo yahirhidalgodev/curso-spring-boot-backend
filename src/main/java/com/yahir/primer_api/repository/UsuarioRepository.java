@@ -14,5 +14,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     List<Usuario> findByEdadBetween(Integer edadAfter, Integer edadBefore);
 
+    List<Usuario> findByOrderByEdadAsc();
 }
 
