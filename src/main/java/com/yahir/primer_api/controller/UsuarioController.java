@@ -44,8 +44,7 @@ public class UsuarioController {
         }
 
     @GetMapping("/usuarios/buscar")
-    public ResponseEntity<UsuarioResponse> obtenerUsuarioPorNombre(
-            @RequestParam String nombre){
+    public ResponseEntity<UsuarioResponse> obtenerUsuarioPorNombre(@RequestParam String nombre){
 
         return ResponseEntity.ok(
                 usuarioService.obtenerUsuarioPorNombre(nombre)
@@ -64,6 +63,11 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarios);
     }
 
+    @GetMapping("/usuarios/between")
+    public ResponseEntity<List<UsuarioResponse>> obtenerUsuarioPorRango(@RequestParam Integer edadAfter, @RequestParam Integer edadBefore){
+        List<UsuarioResponse> usuario = usuarioService.obtenerUsuarioPorRango(edadAfter, edadBefore);
+        return ResponseEntity.ok(usuario);
+    }
 
 
 

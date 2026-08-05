@@ -11,5 +11,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Usuario findByNombreAndEdad(String nombre, Integer edad);
 
     List<Usuario> findByEdadGreaterThanEqual(Integer edad);
+
+    List<Usuario> findByEdadBetween(Integer edadAfter, Integer edadBefore);
+
 }
 

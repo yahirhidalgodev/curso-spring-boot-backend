@@ -20,7 +20,6 @@ public class UsuarioService {
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
-
     public UsuarioResponse guardarUsuario(UsuarioRequest request) {
 
         Usuario usuario = UsuarioMapper.convertirAEntidad(request);
@@ -28,7 +27,6 @@ public class UsuarioService {
 
         return UsuarioMapper.convertirAResponse(usuario);
     }
-
     public List<UsuarioResponse> obtenerUsuarios(){
         List<Usuario> usuarios = usuarioRepository.findAll();
 
@@ -39,14 +37,12 @@ public class UsuarioService {
         }
         return respuesta;
     }
-
     public UsuarioResponse obtenerUsuarioPorId(Long id){
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Usuario no encontrado."));
 
         return UsuarioMapper.convertirAResponse(usuario);
     }
-
     public UsuarioResponse actualizarUsuario(Long id, UsuarioRequest request){
 
         Usuario usuario = usuarioRepository.findById(id)
@@ -58,7 +54,6 @@ public class UsuarioService {
 
         return UsuarioMapper.convertirAResponse(usuario);
     }
-
     public boolean eliminarUsuario(Long id){
         if(usuarioRepository.existsById(id)){
             usuarioRepository.deleteById(id);
@@ -66,8 +61,6 @@ public class UsuarioService {
         }
         return false;
     }
-
-
     public UsuarioResponse obtenerUsuarioPorNombre(String nombre){
 
         Usuario usuario = usuarioRepository.findByNombre(nombre);
@@ -78,9 +71,6 @@ public class UsuarioService {
 
         return UsuarioMapper.convertirAResponse(usuario);
     }
-
-
-
     public UsuarioResponse obtenerUsuarioPorNombreYEdad(String nombre, Integer edad){
         Usuario usuario = usuarioRepository.findByNombreAndEdad(nombre, edad);
 
@@ -90,19 +80,25 @@ public class UsuarioService {
 
         return UsuarioMapper.convertirAResponse(usuario);
     }
-
-
     public List<UsuarioResponse> obtenerUsuariosMayoresOIguales(Integer edad) {
         List<Usuario> usuarios = usuarioRepository.findByEdadGreaterThanEqual(edad);
-
         List<UsuarioResponse> respuesta = new ArrayList<>();
 
         for(Usuario usuario: usuarios){
             respuesta.add(UsuarioMapper.convertirAResponse(usuario));
         }
-
         return respuesta;
-
     }
+    public List<UsuarioResponse> obtenerUsuarioPorRango(Integer edadAfter, Integer edadBefore){
+        List<Usuario> usuarios = usuarioRepository.findByEdadBetween(edadAfter, edadBefore);
+
+        List<UsuarioResponse> respuesta = new ArrayList<>();
+
+        for(Usuario usuario : usuarios){
+            respuesta.add(UsuarioMapper.convertirAResponse(usuario));
+        }
+        return respuesta;
+    }
+
 
 }
