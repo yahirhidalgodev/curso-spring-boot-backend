@@ -75,6 +75,12 @@ public class UsuarioController {
     }
 
 
+    @GetMapping("/usuarios/mayores-iguales-ordenados-desc")
+    public ResponseEntity<List<UsuarioResponse>> obtenerUsuariosPorMayoresOIgualesOrdenadosPorEdadEnDesc(@RequestParam  Integer edad){
+        List<UsuarioResponse> usuario = usuarioService.obtenerUsuariosPorMayoresOIgualesOrdenadosPorEdadEnDesc(edad);
+        return ResponseEntity.ok(usuario);
+
+    }
 
 
 }
