@@ -119,10 +119,6 @@ public class UsuarioService {
         }
         return respuesta;
     }
-
-
-
-
     public UsuarioResponse obtenerUsuarioMayor(){
         Usuario usuario = usuarioRepository.findTop1ByOrderByEdadDesc();
         if (usuario == null) {
@@ -131,4 +127,15 @@ public class UsuarioService {
         return UsuarioMapper.convertirAResponse(usuario);
 
     }
+
+
+    public UsuarioResponse obtenerUsuarioMenor(){
+        Usuario usuario = usuarioRepository.findTop1ByOrderByEdadAsc();
+
+        if(usuario == null){
+            throw new ResourceNotFoundException("No existen usuarios registrados.");
+        }
+        return UsuarioMapper.convertirAResponse(usuario);
+    }
+
 }

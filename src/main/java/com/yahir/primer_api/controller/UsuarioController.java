@@ -74,7 +74,6 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.obtenerUsuariosOrdenadosPorEdad());
     }
 
-
     @GetMapping("/usuarios/mayores-iguales-ordenados-desc")
     public ResponseEntity<List<UsuarioResponse>> obtenerUsuariosPorMayoresOIgualesOrdenadosPorEdadEnDesc(@RequestParam  Integer edad){
         List<UsuarioResponse> usuario = usuarioService.obtenerUsuariosPorMayoresOIgualesOrdenadosPorEdadEnDesc(edad);
@@ -82,16 +81,17 @@ public class UsuarioController {
 
     }
 
-
     @GetMapping("/usuarios/mayor")
     public ResponseEntity<UsuarioResponse> obtenerUsuarioMayor(){
-
         UsuarioResponse usuario = usuarioService.obtenerUsuarioMayor();
-
         return ResponseEntity.ok(usuario);
-
     }
 
+    @GetMapping("/usuarios/menor")
+    public ResponseEntity<UsuarioResponse>  obtenerUsuarioMenor() {
+        UsuarioResponse usuario = usuarioService.obtenerUsuarioMenor();
+        return ResponseEntity.ok(usuario);
+    }
 
 
 }
