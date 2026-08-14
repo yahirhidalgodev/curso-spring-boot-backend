@@ -83,6 +83,17 @@ public class UsuarioController {
     }
 
 
+    @GetMapping("/usuarios/mayor")
+    public ResponseEntity<UsuarioResponse> obtenerUsuarioMayor(){
+
+        UsuarioResponse usuario = usuarioService.obtenerUsuarioMayor();
+
+        return ResponseEntity.ok(usuario);
+
+    }
+
+
+
 }
 
 

@@ -109,7 +109,6 @@ public class UsuarioService {
         }
         return respuesta;
     }
-
     public List<UsuarioResponse>  obtenerUsuariosPorMayoresOIgualesOrdenadosPorEdadEnDesc(Integer edad){
         List<Usuario> usuarios = usuarioRepository.findByEdadGreaterThanEqualOrderByEdadDesc(edad);
 
@@ -122,4 +121,14 @@ public class UsuarioService {
     }
 
 
+
+
+    public UsuarioResponse obtenerUsuarioMayor(){
+        Usuario usuario = usuarioRepository.findTop1ByOrderByEdadDesc();
+        if (usuario == null) {
+            throw new ResourceNotFoundException("No existen usuarios registrados.");
+        }
+        return UsuarioMapper.convertirAResponse(usuario);
+
+    }
 }
