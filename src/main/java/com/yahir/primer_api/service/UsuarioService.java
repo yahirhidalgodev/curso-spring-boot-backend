@@ -1,6 +1,8 @@
 package com.yahir.primer_api.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import com.yahir.primer_api.dto.UsuarioRequest;
 import com.yahir.primer_api.dto.UsuarioResponse;
 import com.yahir.primer_api.exception.ResourceNotFoundException;
@@ -127,8 +129,6 @@ public class UsuarioService {
         return UsuarioMapper.convertirAResponse(usuario);
 
     }
-
-
     public UsuarioResponse obtenerUsuarioMenor(){
         Usuario usuario = usuarioRepository.findTop1ByOrderByEdadAsc();
 
@@ -136,6 +136,11 @@ public class UsuarioService {
             throw new ResourceNotFoundException("No existen usuarios registrados.");
         }
         return UsuarioMapper.convertirAResponse(usuario);
+    }
+
+    public Page<UsuarioResponse> obtenerUsuariosPaginados(Pageable pageable){
+        Page<Usuario> paginaUsuarios = usuarioRepository.findAll(pageable);
+        return paginaUsuarios.map(UsuarioMapper::convertirAResponse);
     }
 
 }

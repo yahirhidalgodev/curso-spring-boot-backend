@@ -4,6 +4,9 @@ import com.yahir.primer_api.dto.UsuarioRequest;
 import com.yahir.primer_api.service.UsuarioService;
 
 import com.yahir.primer_api.dto.UsuarioResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -93,8 +96,10 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
+    @GetMapping("/usuarios/paginados")
+    public ResponseEntity<Page<UsuarioResponse>> obtenerUsuariosPaginados(Pageable pageable){
+        Page<UsuarioResponse> pagina = usuarioService.obtenerUsuariosPaginados(pageable);
+        return ResponseEntity.ok(pagina);
+    }
 
 }
-
-
-

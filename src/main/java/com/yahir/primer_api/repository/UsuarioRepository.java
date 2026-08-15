@@ -13,7 +13,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     List<Usuario> findByOrderByEdadAsc();
     List<Usuario> findByEdadGreaterThanEqualOrderByEdadDesc(Integer edad);
     Usuario findTop1ByOrderByEdadDesc();
-
     Usuario findTop1ByOrderByEdadAsc();
 
 }
